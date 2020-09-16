@@ -1,0 +1,7 @@
+body {
+  background-color: #e2e8f0;
+}
+
+html[theme='dark mode'] {
+  filter: invert(1) hue-rotate(180);
+}
