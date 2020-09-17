@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getStory } from '../services/hnApi';
-import { PrintStories } from './PrintStories.component';
+import { PrintStory } from './PrintStory.component';
 import { Pagination } from './Pagination.component';
 import { STORY_PER_PAGE } from '../constants/constant';
 
-export const TopStories = ({ storyId }) => {
+export const Story = ({ storyId, param }) => {
   const [loading, setLoading] = useState(true);
-  const [topStory, setTopStory] = useState([]);
+  const [story, setStory] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
-  // const [postsPerPage] = useState(STORY_PER_PAGE);
   const [prevPage, setPrevPage] = useState(true);
   const [nextPage, setNextPage] = useState(false);
 
-  const maxStory = Math.floor(storyId.length / STORY_PER_PAGE);
+  const maxStory = Math.ceil(storyId.length / STORY_PER_PAGE);
 
   // get current page
   const indexOfLastPost = currentPage * STORY_PER_PAGE;
   const indexOfFirstPost = indexOfLastPost - STORY_PER_PAGE;
-  const currentPost = topStory.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPost = story.slice(indexOfFirstPost, indexOfLastPost);
 
   // console.log(currentPage);
 
@@ -43,7 +43,7 @@ export const TopStories = ({ storyId }) => {
     // if (mounted) data && data.url && setTopStory(data);
     storyId.map((id) => {
       getStory(id).then((data) => {
-        if (mounted && data && data.url) setTopStory((topStory) => [...topStory, data]);
+        if (mounted && data) setStory((story) => [...story, data]);
       });
     });
     setLoading(false);
@@ -55,19 +55,20 @@ export const TopStories = ({ storyId }) => {
   return (
     <>
       <Pagination
-        storyPerPage={STORY_PER_PAGE}
         totalStory={storyId.length}
         paginate={paginate}
         page={currentPage}
         prev={prevPage}
         next={nextPage}
+        param={param}
       />
-      <PrintStories story={currentPost} loading={loading} page={currentPage} />
+      <PrintStory story={currentPost} loading={loading} page={currentPage} />
     </>
   );
 };
 
-TopStories.propTypes = {
+Story.propTypes = {
+  param: PropTypes.string,
   storyId: PropTypes.array.isRequired,
 };
 

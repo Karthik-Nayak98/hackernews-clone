@@ -11,7 +11,7 @@ export const AskStories = memo(function AskStories({ storyId }) {
 
   useEffect(() => {
     let mounted = true;
-    getStory(storyId).then(data => {
+    getStory(storyId).then((data) => {
       if (mounted) setAskStory(data);
     });
 
@@ -19,20 +19,19 @@ export const AskStories = memo(function AskStories({ storyId }) {
     return () => {
       mounted = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return askStory ? (
-    <div className='pt-2' key={askStory.id}>
+    <div className="pt-2" key={askStory.id}>
       <a href>
-        <p className='text-sm'>
-          <img className='w-3 inline-block' src={caret} alt='caret' /> {askStory.title}{' '}
+        <p className="text-sm">
+          <img className="w-3 inline-block" src={caret} alt="caret" /> {askStory.title}{' '}
           {/* <span className="text-secondary-200 text-xxs"> ({shortenUrl(askStory.url)}) */}
         </p>
       </a>
-      <p className='text-secondary-200 px-5 text-xxs pb-2'>
+      <p className="text-secondary-200 px-5 text-xxs pb-2">
         {askStory.score} points by{' '}
-        <Link className='hover:underline' to={`/user/${askStory.by}`}>
+        <Link className="hover:underline" to={`/user/${askStory.by}`}>
           {askStory.by}
         </Link>{' '}
         | {getTime(askStory.time)} | {askStory.descendants} comments

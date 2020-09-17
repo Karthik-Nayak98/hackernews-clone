@@ -19,17 +19,17 @@ export const App = () => {
     <div className="font-verdana">
       <NavBar />
       <Switch>
-        <Route path="/newest" component={NewStory} />
-        <Route path="/top/:id" component={TopStory} />
+        <Route path="/new" component={NewStory} />
+        <Route path="/top/" component={TopStory} />
         <Route path="/show" component={ShowStory} />
         <Route path="/ask" component={AskStory} />
         <Route path="/jobs" component={JobStory} />
         <Route path="/user/:id" component={UserDetail} />
-        <Route path="/submit/:id" component={UserSubmission} />
+        <Route path="/submit/" component={UserSubmission} />
         <Route path="/comments/:id" component={UserComments} />
         <Route path="/comment/:id" component={Comment} />
         {/* <Route exact path="/:id" component={TopStory} /> */}
-        <Redirect from='/:id' to='/top/:id' />
+        <Redirect exact from='/' to='/top' />
       </Switch>
     </div>
   )

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getStoryId, baseUrl } from '../services/hnApi';
-import { ShowStories } from '../components/ShowStories.component';
-import { InfiniteScroll } from '../hooks/infiniteScroll';
+import { Story } from '../components/Story.component';
 
 export const ShowStory = () => {
 
   const ShowStoryUrl = `${baseUrl}showstories.json`;
 
-  const { loading, count } = InfiniteScroll
   const [showStoryId, setShowStoryId] = useState([]);
 
   useEffect(() => {
@@ -23,7 +21,7 @@ export const ShowStory = () => {
     }
   }, [])
 
-  return showStoryId.slice(0, count).map(storyId => <ShowStories key={storyId} storyId={storyId} loading={loading} />)
+  return <Story storyId={showStoryId} param='show' />
 }
 
 

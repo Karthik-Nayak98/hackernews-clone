@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getUser } from '../services/hnApi';
 import { getDays } from '../helper/convertTime';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 export const UserDetail = ({ match }) => {
   const [user, setUser] = useState({});
@@ -13,12 +14,11 @@ export const UserDetail = ({ match }) => {
       setUser(data);
       setLoading(false);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return !loading ? (
-    <div className="text-secondary-200 m-4 flex h-32">
-      <div>
+    <div className="bg-primary-400 text-secondary-200 my-2 mx-40 flex h-40">
+      <div className="px-2">
         <p className="text-xl">User: </p>
         <p>Created: </p>
         <p>Karma: </p>
@@ -29,10 +29,10 @@ export const UserDetail = ({ match }) => {
         <p> {getDays(user.created)}</p>
         <p> {user.karma}</p>
         {user.about ? (
-          <div dangerouslySetInnerHtml={{ __html: user.about }} className="text-sm"></div>
+          <div dangerouslySetInnerHTML={{ __html: user.about }} className="text-sm"></div>
         ) : null}
         <Link
-          className="underline"
+          className="underline hover:text-primary-200"
           to={{ pathname: `/submit/${user.id}`, state: user.submitted }}
         >
           submission
@@ -40,7 +40,7 @@ export const UserDetail = ({ match }) => {
         |{' '}
         {user.submitted ? (
           <Link
-            className="underline"
+            className="underline hover:text-primary-200"
             to={{ pathname: `/comments/${user.id}`, state: user.submitted }}
           >
             comments
@@ -51,4 +51,8 @@ export const UserDetail = ({ match }) => {
   ) : (
     <p>Loading....</p>
   );
+};
+
+UserDetail.propTypes = {
+  match: PropTypes.object,
 };

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getStoryId, baseUrl } from '../services/hnApi';
-import { TopStories } from '../components/TopStories.component';
-import { InfiniteScroll } from '../hooks/infiniteScroll';
+import { Story } from '../components/Story.component';
 
 export const TopStory = () => {
 
@@ -22,5 +21,5 @@ export const TopStory = () => {
     }
   }, [])
 
-  return <TopStories storyId={topStoryId} />
+  return <Story storyId={topStoryId} param='top' />
 }

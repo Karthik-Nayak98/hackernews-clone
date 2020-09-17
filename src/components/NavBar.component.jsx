@@ -29,7 +29,7 @@ export const NavBar = () => {
           }}
           to="/top"
         >
-          <li>Top</li>{' '}
+          <li>top</li>{' '}
         </NavLink>
         <span>|</span>
         <NavLink
@@ -37,7 +37,7 @@ export const NavBar = () => {
             fontWeight: '500',
             color: 'white',
           }}
-          to="/newest"
+          to="/new"
         >
           <li>new</li>{' '}
         </NavLink>
@@ -81,7 +81,7 @@ export const NavBar = () => {
   );
 };
 
-NavBar.propTypes = {
+Emoji.propTypes = {
   symbol: PropTypes.any,
   label: PropTypes.any,
 };

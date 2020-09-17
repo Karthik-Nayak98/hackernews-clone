@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { getStoryId, baseUrl } from '../services/hnApi';
-import { AskStories } from '../components/AskStories.component';
+import { Story } from '../components/Story.component';
 
 export const AskStory = () => {
 
@@ -22,5 +22,5 @@ export const AskStory = () => {
     }
   }, [])
 
-  return askStoryId.map(storyId => <AskStories key={storyId} storyId={storyId} />)
+  return <Story storyId={askStoryId} param='ask' />
 }
