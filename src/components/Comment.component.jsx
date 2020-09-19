@@ -4,6 +4,7 @@ import { shortenUrl } from '../helper/urlShortener';
 import caret from '../caret.svg';
 import { getTime } from '../helper/convertTime';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 export const Comment = ({ location, match }) => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,9 @@ export const Comment = ({ location, match }) => {
   useEffect(() => {
     let mounted = true;
     setLoading(true);
-    getStory(match.params.id).then((data) => setStory(data));
+    getStory(match.params.id).then((data) => {
+      if (mounted) setStory(data);
+    });
 
     location.state.map((id) =>
       getStory(id).then((data) => {
@@ -27,6 +30,7 @@ export const Comment = ({ location, match }) => {
   }, []);
 
   console.log(story);
+
   return !loading ? (
     userComment.map((item) => (
       <div className="p-1" key={item.id}>
@@ -47,4 +51,9 @@ export const Comment = ({ location, match }) => {
   ) : (
     <p>Loading...</p>
   );
+};
+
+Comment.propTypes = {
+  location: PropTypes.object,
+  match: PropTypes.object,
 };

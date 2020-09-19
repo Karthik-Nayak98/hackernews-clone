@@ -15,7 +15,7 @@ export const PrintStory = ({ story, loading, page }) => {
     <div className="m-40 mt-1">
       {story.map((item, index) => (
         <div
-          className="transition duration-500 ease-in-out bg-primary-400 pt-2 mb-1 shadow rounded-l rounded-r hover:bg-primary-600 transform hover:scale-105"
+          className="transition  duration-500 ease-in-out bg-primary-400 pt-2 mb-1 shadow rounded-l rounded-r hover:bg-primary-600 transform hover:scale-105"
           key={item.id}
         >
           <div className="text-base">
@@ -36,22 +36,26 @@ export const PrintStory = ({ story, loading, page }) => {
               <span>{item.title}</span>
             )}
           </div>
-          <p className="text-secondary-200 px-5 text-xs pb-2">
-            {item.score} points by{' '}
-            <Link
-              className="hover:underline hover:text-primary-200"
-              to={`/user/${item.by}`}
-            >
-              {item.by}
-            </Link>{' '}
-            | {getTime(item.time)} |{' '}
-            <Link
-              className="hover:underline hover:text-primary-200"
-              to={{ pathname: `/comment/${item.id}`, state: item.kids }}
-            >
-              {item.descendants} comments
-            </Link>
-          </p>
+          {item.type !== 'job' ? (
+            <p className="text-secondary-200 px-5 text-xs pb-2">
+              {item.score} points by{' '}
+              <Link
+                className="hover:underline hover:text-primary-200"
+                to={`/user/${item.by}`}
+              >
+                {item.by}
+              </Link>{' '}
+              | {getTime(item.time)} |{' '}
+              <Link
+                className="hover:underline hover:text-primary-200"
+                to={{ pathname: `/comment/${item.id}`, state: item.kids }}
+              >
+                {item.descendants} comments
+              </Link>
+            </p>
+          ) : (
+            <p className="text-secondary-200 px-8 text-xs pb-2">{getTime(item.time)}</p>
+          )}
         </div>
       ))}
     </div>

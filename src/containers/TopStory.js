@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { getStoryId, baseUrl } from '../services/hnApi';
 import { Story } from '../components/Story.component';
+import { PropTypes } from 'prop-types';
 
-export const TopStory = () => {
+export const TopStory = (param) => {
 
-  const topStoryUrl = `${baseUrl}topstories.json`;
+  let Url;
+  if (param === 'top')
+    Url = `${baseUrl}topstories.json`;
+  else if (param === 'new')
+    Url = `${baseUrl}newstories.json`;
 
-  // const { loading, count } = InfiniteScroll();
   const [topStoryId, setTopStoryId] = useState([]);
 
   useEffect(() => {
     let mounted = true
-    getStoryId(topStoryUrl).then(data => {
+    getStoryId(Url).then(data => {
       if (mounted) {
         setTopStoryId(data)
       }
@@ -21,5 +25,15 @@ export const TopStory = () => {
     }
   }, [])
 
-  return <Story storyId={topStoryId} param='top' />
+
+  return (
+  if (param === 'top')
+    <Story storyId={topStoryId} param='top' />
+  else if (param === 'new')
+    <Story storyId={topStoryId} param='new' />
+  )
+}
+
+TopStory.proptTypes = {
+  param: PropTypes.string,
 }

@@ -17,7 +17,7 @@ export const UserDetail = ({ match }) => {
   }, []);
 
   return !loading ? (
-    <div className="bg-primary-400 text-secondary-200 my-2 mx-40 flex h-40">
+    <div className="bg-primary-400 text-secondary-200 my-1 mx-40 p-4 flex">
       <div className="px-2">
         <p className="text-xl">User: </p>
         <p>Created: </p>

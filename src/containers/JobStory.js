@@ -1,14 +1,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { getStoryId, baseUrl } from '../services/hnApi';
-import { JobStories } from '../components/JobStories.component';
-import { InfiniteScroll } from '../hooks/infiniteScroll';
+import { Story } from '../components/Story.component';
 
 export const JobStory = () => {
 
   const JobStoryUrl = `${baseUrl}jobstories.json`;
 
-  const { loading, count } = InfiniteScroll();
   const [jobStoryId, setJobStoryId] = useState([]);
 
   useEffect(() => {
@@ -24,7 +22,7 @@ export const JobStory = () => {
     }
   }, [])
 
-  return jobStoryId.slice(0, count).map(storyId => <JobStories key={storyId} storyId={storyId} loading={loading} />)
+  return <Story storyId={jobStoryId} param='jobs' />
 }
 
 

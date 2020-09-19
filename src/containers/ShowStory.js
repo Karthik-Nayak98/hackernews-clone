@@ -23,7 +23,3 @@ export const ShowStory = () => {
 
   return <Story storyId={showStoryId} param='show' />
 }
-
-
-
-

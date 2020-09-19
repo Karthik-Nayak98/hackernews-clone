@@ -4,8 +4,10 @@ import { getStory } from '../services/hnApi';
 import { STORY_PER_PAGE } from '../constants/constant';
 import { Pagination } from '../components/Pagination.component';
 import { PrintStory } from './PrintStory.component';
+import { useHistory } from 'react-router-dom';
 
 export const UserSubmission = ({ location }) => {
+  let history = useHistory();
   const [loading, setLoading] = useState(false);
   const [userStory, setUserStory] = useState([]);
 
@@ -20,19 +22,19 @@ export const UserSubmission = ({ location }) => {
   const indexOfFirstPost = indexOfLastPost - STORY_PER_PAGE;
   const currentPost = userStory.slice(indexOfFirstPost, indexOfLastPost);
 
-  // console.log(currentPage);
-
   // get next page
   const paginate = (pageValue, pageNumber) => {
-    if (pageValue === 'next') setCurrentPage(pageNumber);
-    if (pageValue === 'prev') setCurrentPage(pageNumber);
+    if (pageValue === 'next' || pageValue === 'prev') setCurrentPage(pageNumber);
 
     if (pageNumber > 1) setPrevPage(false);
     else setPrevPage(true);
 
     if (pageNumber >= maxStory) setNextPage(true);
     else setNextPage(false);
+    history.push(`${location.pathname}/${currentPage}`);
   };
+
+  console.log(location);
 
   useEffect(() => {
     let mounted = true;
@@ -65,27 +67,6 @@ export const UserSubmission = ({ location }) => {
     </>
   );
 };
-
-//   <div className="pt-2 pb-3" key={userStory.id}>
-//     <a href={userStory.url}>
-//       <p className="text-sm">
-//         <img className="w-3 inline-block" src={caret} alt="caret" />
-//         {userStory.title}{" "}
-//         <span className="text-secondary-200 text-xxs">
-//           ({shortenUrl(userStory.url)})
-//         </span>
-//       </p>
-//     </a>
-//     <p className="text-secondary-200 px-5 text-xxs">
-//       {userStory.score} points by{" "}
-//       <Link className="hover:underline" to={`/user/${userStory.by}`}>
-//         {userStory.by}
-//       </Link>{" "}
-//       | {getTime(userStory.time)} | {userStory.descendants} comments
-//     </p>
-//     <hr />
-//   </div>
-// );
 
 UserSubmission.propTypes = {
   location: PropTypes.object,

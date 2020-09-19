@@ -11,21 +11,19 @@ import { AskStory } from './containers/AskStory';
 import { ShowStory } from './containers/ShowStory';
 import { UserComments } from './components/UserComments.component';
 
-// import { Pagination } from './components/Pagination.component';
-
 export const App = () => {
 
   return (
     <div className="font-verdana">
       <NavBar />
       <Switch>
-        <Route path="/new" component={NewStory} />
-        <Route path="/top/" component={TopStory} />
+        <Route path="/new" component={() => <TopStory param='new' />} />
+        <Route path="/top/" component={() => <TopStory param='top' />} />
         <Route path="/show" component={ShowStory} />
         <Route path="/ask" component={AskStory} />
         <Route path="/jobs" component={JobStory} />
         <Route path="/user/:id" component={UserDetail} />
-        <Route path="/submit/" component={UserSubmission} />
+        <Route path="/submit/:id" component={UserSubmission} />
         <Route path="/comments/:id" component={UserComments} />
         <Route path="/comment/:id" component={Comment} />
         {/* <Route exact path="/:id" component={TopStory} /> */}
